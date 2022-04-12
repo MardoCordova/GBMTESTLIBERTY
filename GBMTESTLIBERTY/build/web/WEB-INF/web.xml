@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.gbm.model.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadCountries</servlet-name>
+        <servlet-class>com.gbm.model.LoadCountries</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConnectMQ</servlet-name>
+        <servlet-class>com.gbm.model.ConnectMQ</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/servlet1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadCountries</servlet-name>
+        <url-pattern>/servlet2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConnectMQ</servlet-name>
+        <url-pattern>/servlet3</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>opciones.jsp</welcome-file>
+    </welcome-file-list>
+    <resource-ref>
+        <description>Conexión MQ</description>
+        <res-ref-name>jms/myqcf</res-ref-name>
+        <res-type>javax.jms.QueueConnectionFactory</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
+    <resource-ref>
+        <description>Conexión Cola</description>
+        <res-ref-name>jms/wmqQ1</res-ref-name>
+        <res-type>javax.jms.Queue</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
+</web-app>
