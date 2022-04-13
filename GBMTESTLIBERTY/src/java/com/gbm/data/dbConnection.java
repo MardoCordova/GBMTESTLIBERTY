@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.List;
 import javax.naming.InitialContext;
@@ -24,6 +25,9 @@ import javax.sql.DataSource;
 public class dbConnection {
 
     DataSource ds = null;
+    private String database_connection_strng = "jdbc:postgresql://paises.postgres.database.azure.com:5432/sample";
+    private String database_user ="gbm";
+    private String database_password="14BFee37@";
     
     public Boolean cargaUsuario(String usuario, String password) throws SQLException {
         List<String> valores = new ArrayList<>();
@@ -69,15 +73,17 @@ public class dbConnection {
         List<String> valores = new ArrayList<>();
         String resultado = "";
         try {
-            InitialContext ctx = new InitialContext();
-            this.ds = (DataSource) ctx.lookup("java:comp/env/jdbc/DB2CONN");
-            Connection con = this.ds.getConnection();
+            //InitialContext ctx = new InitialContext();
+            //this.ds = (DataSource) ctx.lookup("jdbc:postgresql://paises.postgres.database.azure.com:5432/paises","gbm","14BFee37@","sslmode=require");
+            //Connection con = this.ds.getConnection();
+            Class.forName("org.postgresql.Driver");
+            Connection con = DriverManager.getConnection(database_connection_strng,database_user,database_password);
             System.out.println("**** Loaded the JDBC driver");
             con.setAutoCommit(false);
             System.out.println("**** Created a JDBC connection to the data source");
             Statement stmt = con.createStatement();
             System.out.println("**** Created JDBC Statement object");
-            ResultSet rs = stmt.executeQuery("SELECT NOMBRE_PAIS FROM SAMPLE.PAISES");
+            ResultSet rs = stmt.executeQuery("SELECT NOMBRE_PAIS FROM PAISES");
             System.out.println("**** Created JDBC ResultSet object");
             while (rs.next()) {
                 valores.add(rs.getString(1));
