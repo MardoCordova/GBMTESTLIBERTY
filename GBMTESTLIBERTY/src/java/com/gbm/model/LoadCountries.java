@@ -33,6 +33,7 @@ public class LoadCountries extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String myVar = System.getenv().get("AZURE_POSTGRESQL_CONNECTIONSTRING");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -41,7 +42,7 @@ public class LoadCountries extends HttpServlet {
             out.println("<title>Load Countries</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>This page loads countries from the db2 Database</h1>");
+            out.println("<h1>This page loads countries from the db2 Database 2"+myVar+"</h1>");
             out.println("<br>");
             out.println("<br>");
             out.println("<br>");
